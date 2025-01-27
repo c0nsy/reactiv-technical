@@ -36,7 +36,7 @@ const Carousel = () => {
               <textarea
                 value={text}
                 onChange={(e) => handleTextChange(index, e.target.value)}
-                placeholder="Enter a URL for an image"
+                placeholder="Link to image (e.g., https://example.com)"
                 className={styles.textArea}
               />
               <button

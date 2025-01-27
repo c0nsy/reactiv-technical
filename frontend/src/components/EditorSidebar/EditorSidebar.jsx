@@ -1,6 +1,7 @@
 // import React from "react";
 import Carousel from "../Carousel/Carousel";
 import TextArea from "../TextArea/TextArea";
+import CallToAction from "../CallToAction/CallToAction";
 import styles from "./EditorSidebar.module.css";
 
 const EditorSidebar = () => {
@@ -15,10 +16,7 @@ const EditorSidebar = () => {
       <TextArea />
 
       {/* Future CTA Section Placeholder */}
-      <div className={styles.otherSection}>
-        <h3>Call to Action Section (placeholder)</h3>
-        {/* CTA logic goes here */}
-      </div>
+      <CallToAction />
     </div>
   );
 };
