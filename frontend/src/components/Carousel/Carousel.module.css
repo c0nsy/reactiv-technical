@@ -1,0 +1,58 @@
+.carouselEditor {
+  margin-top: 1rem;
+}
+
+/* Dropdown header styling */
+.dropdownHeader {
+  cursor: pointer;
+  background: #ddd;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+/* Dropdown body styling */
+.dropdownBody {
+  margin-top: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  background: #f9f9f9;
+}
+
+/* Each row containing a textarea and a delete button */
+.textAreaRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Textarea styles */
+.textArea {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ddd;
+  margin-right: 0.5rem;
+}
+
+/* Delete button styles */
+.deleteButton {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+/* Plus button */
+.addButton {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
