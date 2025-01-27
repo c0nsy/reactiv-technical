@@ -1,32 +1,27 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppContext } from "../../context/AppContext";
 import styles from "./Carousel.module.css";
 
-// A basic URL regex for demonstration
+// A basic URL regex
 const urlRegex = /^https?:\/\/[^\s/$.?#].[^\s]*$/i;
 
 const Carousel = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // Each item has { value: string, isValid: boolean }
+  // Local state for user-typed URLs, each item = { value: string, isValid: boolean }
   const [textAreas, setTextAreas] = useState([]);
 
-  // Toggle the dropdown
+  // Pull in global context so we can set the array of valid carousel images
+  const { setCarouselImages } = useAppContext();
+
+  // Toggles the dropdown for the carousel
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Validate URL
-  const validateUrl = (url) => {
-    // Trim and test against regex
-    return urlRegex.test(url.trim());
-  };
-
   // Add a new text area
   const addTextArea = () => {
-    setTextAreas((prev) => [
-      ...prev,
-      { value: "", isValid: true }, // default to true until the user enters something
-    ]);
+    setTextAreas((prev) => [...prev, { value: "", isValid: true }]);
   };
 
   // Delete a text area
@@ -34,29 +29,33 @@ const Carousel = () => {
     setTextAreas((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Handle text change
+  // Validate and handle text change
   const handleTextChange = (index, newValue) => {
-    // If you'd like empty strings to NOT be red, handle that logic here:
-    // For example, if empty strings are allowed, you could do:
-    // const isValid = !newValue.trim() || validateUrl(newValue);
-    // But if you always want a valid URL or else it's red, do:
-    const isValid = validateUrl(newValue);
-
+    const isValid = urlRegex.test(newValue.trim());
     setTextAreas((prev) =>
-      prev.map((item, i) =>
-        i === index ? { ...item, value: newValue, isValid } : item
-      )
+      prev.map((item, i) => (i === index ? { value: newValue, isValid } : item))
     );
   };
 
-  // If any text area is invalid, disable the add button
+  // If any text area is invalid, disable the plus button
   const anyInvalid = textAreas.some((item) => !item.isValid);
+
+  // Whenever `textAreas` changes, update the global context with only valid URLs
+  useEffect(() => {
+    const validUrls = textAreas
+      .filter((item) => item.isValid && item.value.trim() !== "")
+      .map((item) => item.value.trim());
+
+    // Update the global carouselImages array with the valid ones
+    setCarouselImages(validUrls);
+  }, [textAreas, setCarouselImages]);
 
   return (
     <div className={styles.carouselEditor}>
       <div className={styles.dropdownHeader} onClick={toggleDropdown}>
         Carousel Options
       </div>
+
       {dropdownOpen && (
         <div className={styles.dropdownBody}>
           {textAreas.map((item, index) => (
@@ -65,7 +64,6 @@ const Carousel = () => {
                 value={item.value}
                 onChange={(e) => handleTextChange(index, e.target.value)}
                 placeholder="Enter a URL for an image"
-                // Apply the 'invalid' class if NOT valid
                 className={
                   item.isValid
                     ? styles.textArea
@@ -80,6 +78,7 @@ const Carousel = () => {
               </button>
             </div>
           ))}
+
           <button
             onClick={addTextArea}
             className={styles.addButton}
