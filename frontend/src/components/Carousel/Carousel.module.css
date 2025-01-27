@@ -20,23 +20,40 @@
   background: #f9f9f9;
 }
 
-/* Each row containing a textarea and a delete button */
+/* Each row containing textarea and a delete button */
 .textAreaRow {
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
 }
 
-/* Textarea styles */
+/* Textarea styling */
 .textArea {
   flex: 1;
   padding: 0.5rem;
   border-radius: 0.25rem;
   border: 1px solid #ddd;
   margin-right: 0.5rem;
+  outline: none; /* remove default focus outline */
 }
 
-/* Delete button styles */
+.textArea:focus {
+  outline: none; /* remove the default focus ring entirely */
+  border: 2px solid #006aff; /* or your custom focus color for valid fields */
+}
+
+/* For invalid fields, keep them red even on focus */
+.invalid:focus {
+  border: 2px solid #dc3545 !important;
+  outline: none !important;
+}
+
+/* Red outline for invalid URLs */
+.invalid {
+  border: 1px solid #dc3545 !important;
+}
+
+/* Delete button */
 .deleteButton {
   background: #dc3545;
   color: white;
