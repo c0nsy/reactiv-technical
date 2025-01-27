@@ -1,17 +1,16 @@
+// src/components/MobilePreview/MobilePreview.jsx
 import React from "react";
-import Slider from "react-slick";
 import { useAppContext } from "../../context/AppContext";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "./MobilePreview.module.css";
 
 const MobilePreview = () => {
-  const { carouselImages } = useAppContext();
+  const { carouselImages, textSections } = useAppContext();
 
   const isSingleSlide = carouselImages.length <= 1;
-
-  // React Slick settings
-  const settings = {
+  const carouselSettings = {
     dots: true,
     infinite: !isSingleSlide,
     speed: 500,
@@ -22,9 +21,10 @@ const MobilePreview = () => {
   return (
     <div className={styles.previewContainer}>
       <div className={styles.phone}>
+        {/* Carousel top area */}
         <div className={styles.carouselContainer}>
           {carouselImages && carouselImages.length > 0 ? (
-            <Slider {...settings} className={styles.slickContainer}>
+            <Slider {...carouselSettings} className={styles.slickContainer}>
               {carouselImages.map((url, index) => (
                 <div key={index} className={styles.slide}>
                   <img
@@ -36,12 +36,20 @@ const MobilePreview = () => {
               ))}
             </Slider>
           ) : (
-            <p className={styles.noImages}>No valid images yet.</p>
+            <p>No valid images yet.</p>
           )}
         </div>
+
+        {/* Text Sections below carousel */}
         <div className={styles.bottomSection}>
-          {/* Other content like TextArea preview or Call To Action preview can go here */}
-          <h3>Additional Sections Go Here</h3>
+          {textSections.map((section, index) => (
+            <div key={index} className={styles.textBlock}>
+              <h3 style={{ color: section.titleColor }}>{section.title}</h3>
+              <p style={{ color: section.descriptionColor }}>
+                {section.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

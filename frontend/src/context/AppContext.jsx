@@ -1,16 +1,14 @@
-import { createContext, useContext, useState } from "react";
+// src/context/AppContext.jsx
+import React, { createContext, useContext, useState } from "react";
 
 const AppContext = createContext();
 
-// eslint-disable-next-line react/prop-types
 export const AppProvider = ({ children }) => {
   const [carouselImages, setCarouselImages] = useState([]);
-  const [textArea, setTextArea] = useState({
-    title: "",
-    description: "",
-    titleColor: "#000000",
-    descriptionColor: "#000000",
-  });
+
+  // Add these
+  const [textSections, setTextSections] = useState([]);
+
   const [callToAction, setCallToAction] = useState({
     label: "",
     link: "",
@@ -22,8 +20,8 @@ export const AppProvider = ({ children }) => {
       value={{
         carouselImages,
         setCarouselImages,
-        textArea,
-        setTextArea,
+        textSections,
+        setTextSections,
         callToAction,
         setCallToAction,
       }}

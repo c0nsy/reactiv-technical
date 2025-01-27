@@ -1,31 +1,33 @@
-import { useState } from "react";
+// src/components/TextArea/TextArea.jsx
+import React, { useState } from "react";
+import { useAppContext } from "../../context/AppContext";
 import styles from "./TextArea.module.css";
 
 const TextArea = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // Each item has: title, description, titleColor, descriptionColor, and a flag to show/hide color inputs
-  const [textSections, setTextSections] = useState([]);
+  // Now we use the global textSections array from context
+  const { textSections, setTextSections } = useAppContext();
 
+  // Toggle the dropdown
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Add a new text section with default colors and hidden color options
+  // Add a new text section
   const addSection = () => {
-    setTextSections((prev) => [
-      ...prev,
-      {
-        title: "",
-        description: "",
-        titleColor: "#000000",
-        descriptionColor: "#000000",
-        showColorOptions: false,
-      },
-    ]);
+    const newSection = {
+      title: "",
+      description: "",
+      titleColor: "#000000",
+      descriptionColor: "#000000",
+      showColorOptions: false, // if you want the color pickers to be collapsible
+    };
+
+    setTextSections((prev) => [...prev, newSection]);
   };
 
-  // Handle changes in any field (title, description, titleColor, descriptionColor, etc.)
+  // Handle field changes (title, description, or colors)
   const handleChange = (index, field, value) => {
     setTextSections((prev) =>
       prev.map((section, i) =>
@@ -34,7 +36,7 @@ const TextArea = () => {
     );
   };
 
-  // Toggle visibility of the color inputs
+  // Toggle color pickers
   const toggleColorOptions = (index) => {
     setTextSections((prev) =>
       prev.map((section, i) =>
@@ -45,7 +47,7 @@ const TextArea = () => {
     );
   };
 
-  // Remove a text section
+  // Delete a text section
   const deleteSection = (index) => {
     setTextSections((prev) => prev.filter((_, i) => i !== index));
   };
@@ -59,7 +61,6 @@ const TextArea = () => {
         <div className={styles.dropdownBody}>
           {textSections.map((section, index) => (
             <div key={index} className={styles.sectionRow}>
-              {/* Title + Description Inputs */}
               <div className={styles.sectionInputs}>
                 <input
                   type="text"
@@ -79,8 +80,6 @@ const TextArea = () => {
                   className={styles.descriptionInput}
                 />
               </div>
-
-              {/* Buttons */}
               <div className={styles.buttonGroup}>
                 <button
                   onClick={() => toggleColorOptions(index)}
@@ -96,7 +95,7 @@ const TextArea = () => {
                 </button>
               </div>
 
-              {/* Conditionally render color pickers */}
+              {/* Conditionally render color inputs */}
               {section.showColorOptions && (
                 <div className={styles.colorInputs}>
                   <label>Title Color: </label>
@@ -106,7 +105,6 @@ const TextArea = () => {
                     onChange={(e) =>
                       handleChange(index, "titleColor", e.target.value)
                     }
-                    className={styles.colorField}
                   />
                   <label>Description Color: </label>
                   <input
@@ -115,7 +113,6 @@ const TextArea = () => {
                     onChange={(e) =>
                       handleChange(index, "descriptionColor", e.target.value)
                     }
-                    className={styles.colorField}
                   />
                 </div>
               )}
