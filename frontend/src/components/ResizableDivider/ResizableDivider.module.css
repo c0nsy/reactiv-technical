@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  overflow-y: auto;
+}
+
+.preview {
+  background-color: #f1f3f5;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.divider {
+  width: 5px;
+  cursor: col-resize;
+  background-color: #ddd;
+  z-index: 1;
+}
