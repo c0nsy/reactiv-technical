@@ -1,5 +1,3 @@
-// src/components/MobilePreview/MobilePreview.jsx
-import React from "react";
 import { useAppContext } from "../../context/AppContext";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import styles from "./MobilePreview.module.css";
 
 const MobilePreview = () => {
-  const { carouselImages, textSections } = useAppContext();
+  const { carouselImages, textSections, ctaList } = useAppContext();
 
   const isSingleSlide = carouselImages.length <= 1;
   const carouselSettings = {
@@ -40,7 +38,7 @@ const MobilePreview = () => {
           )}
         </div>
 
-        {/* Text Sections below carousel */}
+        {/* Text Sections */}
         <div className={styles.bottomSection}>
           {textSections.map((section, index) => (
             <div key={index} className={styles.textBlock}>
@@ -49,6 +47,28 @@ const MobilePreview = () => {
                 {section.description}
               </p>
             </div>
+          ))}
+
+          {/* CTA Buttons */}
+          {ctaList.map((cta, index) => (
+            <a
+              key={index}
+              href={cta.link || "#"}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                backgroundColor: cta.buttonColor,
+                color: cta.labelColor,
+                display: "inline-block",
+                padding: "0.5rem 1rem",
+                borderRadius: "0.25rem",
+                textDecoration: "none",
+                marginBottom: "1rem",
+                cursor: cta.link ? "pointer" : "default",
+              }}
+            >
+              {cta.label}
+            </a>
           ))}
         </div>
       </div>
