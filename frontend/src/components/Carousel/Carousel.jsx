@@ -1,38 +1,20 @@
 // src/components/Carousel/Carousel.jsx
 import React, { useState } from "react";
-import { useAppContext } from "../../context/AppContext";
+import { useCarousel } from "../../hooks/useCarousel";
 import styles from "./Carousel.module.css";
-
-// A basic URL regex for demonstration
-const urlRegex = /^https?:\/\/[^\s/$.?#].[^\s]*$/i;
 
 const Carousel = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // Now we read/write directly to the context
-  const { carouselImages, setCarouselImages } = useAppContext();
+  // Use your custom hook
+  const { carouselImages, addImage, updateImage, removeImage } = useCarousel();
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Add a new empty string to represent a new URL
-  const addImage = () => {
-    setCarouselImages((prev) => [...prev, ""]);
-  };
-
-  // Delete an image by index
-  const deleteImage = (index) => {
-    setCarouselImages((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  // Validate and update a given URL
-  const handleUrlChange = (index, newValue) => {
-    // Optional: check if newValue is valid with urlRegex
-    // If you want to store invalid entries as well, or blank, up to you
-    setCarouselImages((prev) =>
-      prev.map((url, i) => (i === index ? newValue : url))
-    );
+  const handleUrlChange = (index, value) => {
+    updateImage(index, value);
   };
 
   return (
@@ -40,7 +22,6 @@ const Carousel = () => {
       <div className={styles.dropdownHeader} onClick={toggleDropdown}>
         Carousel Options
       </div>
-
       {dropdownOpen && (
         <div className={styles.dropdownBody}>
           {carouselImages.map((url, index) => (
@@ -52,14 +33,14 @@ const Carousel = () => {
                 className={styles.textArea}
               />
               <button
-                onClick={() => deleteImage(index)}
+                onClick={() => removeImage(index)}
                 className={styles.deleteButton}
               >
                 Delete
               </button>
             </div>
           ))}
-          <button onClick={addImage} className={styles.addButton}>
+          <button onClick={() => addImage()} className={styles.addButton}>
             +
           </button>
         </div>

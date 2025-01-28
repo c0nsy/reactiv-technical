@@ -21,7 +21,7 @@ const MobilePreview = () => {
       <div className={styles.phone}>
         {/* Carousel top area */}
         <div className={styles.carouselContainer}>
-          {carouselImages && carouselImages.length > 0 ? (
+          {carouselImages && carouselImages.length > 0 && (
             <Slider {...carouselSettings} className={styles.slickContainer}>
               {carouselImages.map((url, index) => (
                 <div key={index} className={styles.slide}>
@@ -33,8 +33,6 @@ const MobilePreview = () => {
                 </div>
               ))}
             </Slider>
-          ) : (
-            <p>No valid images yet.</p>
           )}
         </div>
 
