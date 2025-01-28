@@ -7,37 +7,32 @@ export const AppProvider = ({ children }) => {
   const [textSections, setTextSections] = useState([]);
   const [ctaList, setCtaList] = useState([]);
 
+  // Reset all data
   const reset = () => {
     setCarouselImages([]);
     setTextSections([]);
     setCtaList([]);
   };
 
+  // Export all data as JSON
   const exportData = () => {
     const exportObj = {
       carouselImages,
       textSections,
       ctaList,
     };
+
     return JSON.stringify(exportObj, null, 2);
   };
 
-  // We'll parse the JSON and overwrite each array
   const importData = (jsonString) => {
     try {
       const parsed = JSON.parse(jsonString);
 
-      // Example structure:
-      // {
-      //   "carouselImages": [...],
-      //   "textSections": [...],
-      //   "ctaList": [...]
-      // }
-
-      // First, reset existing data
+      // First reset existing data
       reset();
 
-      // Then overwrite with what's in parsed
+      // Overwrite arrays with what's in parsed if present
       if (parsed.carouselImages) {
         setCarouselImages(parsed.carouselImages);
       }
@@ -49,7 +44,8 @@ export const AppProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Invalid JSON for importData:", error);
-      throw error; // re-throw so we can catch it in the UI
+      // Re-throw so it can be caught in the UI (e.g., show an alert)
+      throw error;
     }
   };
 

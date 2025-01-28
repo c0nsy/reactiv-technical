@@ -1,54 +1,39 @@
-import { useState, useEffect } from "react";
+// src/components/Carousel/Carousel.jsx
+import React, { useState } from "react";
 import { useAppContext } from "../../context/AppContext";
 import styles from "./Carousel.module.css";
 
-// A basic URL regex
+// A basic URL regex for demonstration
 const urlRegex = /^https?:\/\/[^\s/$.?#].[^\s]*$/i;
 
 const Carousel = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // Local state for user-typed URLs, each item = { value: string, isValid: boolean }
-  const [textAreas, setTextAreas] = useState([]);
+  // Now we read/write directly to the context
+  const { carouselImages, setCarouselImages } = useAppContext();
 
-  // Pull in global context so we can set the array of valid carousel images
-  const { setCarouselImages } = useAppContext();
-
-  // Toggles the dropdown for the carousel
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Add a new text area
-  const addTextArea = () => {
-    setTextAreas((prev) => [...prev, { value: "", isValid: true }]);
+  // Add a new empty string to represent a new URL
+  const addImage = () => {
+    setCarouselImages((prev) => [...prev, ""]);
   };
 
-  // Delete a text area
-  const deleteTextArea = (index) => {
-    setTextAreas((prev) => prev.filter((_, i) => i !== index));
+  // Delete an image by index
+  const deleteImage = (index) => {
+    setCarouselImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Validate and handle text change
-  const handleTextChange = (index, newValue) => {
-    const isValid = urlRegex.test(newValue.trim());
-    setTextAreas((prev) =>
-      prev.map((item, i) => (i === index ? { value: newValue, isValid } : item))
+  // Validate and update a given URL
+  const handleUrlChange = (index, newValue) => {
+    // Optional: check if newValue is valid with urlRegex
+    // If you want to store invalid entries as well, or blank, up to you
+    setCarouselImages((prev) =>
+      prev.map((url, i) => (i === index ? newValue : url))
     );
   };
-
-  // If any text area is invalid, disable the plus button
-  const anyInvalid = textAreas.some((item) => !item.isValid);
-
-  // Whenever `textAreas` changes, update the global context with only valid URLs
-  useEffect(() => {
-    const validUrls = textAreas
-      .filter((item) => item.isValid && item.value.trim() !== "")
-      .map((item) => item.value.trim());
-
-    // Update the global carouselImages array with the valid ones
-    setCarouselImages(validUrls);
-  }, [textAreas, setCarouselImages]);
 
   return (
     <div className={styles.carouselEditor}>
@@ -58,36 +43,23 @@ const Carousel = () => {
 
       {dropdownOpen && (
         <div className={styles.dropdownBody}>
-          {textAreas.map((item, index) => (
+          {carouselImages.map((url, index) => (
             <div key={index} className={styles.textAreaRow}>
               <textarea
-                value={item.value}
-                onChange={(e) => handleTextChange(index, e.target.value)}
+                value={url}
+                onChange={(e) => handleUrlChange(index, e.target.value)}
                 placeholder="Enter a URL for an image"
-                className={
-                  item.isValid
-                    ? styles.textArea
-                    : `${styles.textArea} ${styles.invalid}`
-                }
+                className={styles.textArea}
               />
               <button
-                onClick={() => deleteTextArea(index)}
+                onClick={() => deleteImage(index)}
                 className={styles.deleteButton}
               >
                 Delete
               </button>
             </div>
           ))}
-
-          <button
-            onClick={addTextArea}
-            className={styles.addButton}
-            disabled={anyInvalid}
-            style={{
-              opacity: anyInvalid ? 0.6 : 1,
-              cursor: anyInvalid ? "not-allowed" : "pointer",
-            }}
-          >
+          <button onClick={addImage} className={styles.addButton}>
             +
           </button>
         </div>
