@@ -1,5 +1,4 @@
-// src/components/CallToAction/CallToAction.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCTA } from "../../hooks/useCTA";
 import styles from "./CallToAction.module.css";
 

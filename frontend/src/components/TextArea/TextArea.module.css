@@ -94,7 +94,7 @@
   padding: 0.3rem;
   border-radius: 0.25rem;
   border: 1px solid #ddd;
-  text-transform: uppercase; /* helps with #FFF -> #FFF */
+  text-transform: uppercase;
 }
 
 /* Plus (+) button */

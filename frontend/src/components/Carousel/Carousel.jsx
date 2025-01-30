@@ -1,12 +1,10 @@
-// src/components/Carousel/Carousel.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCarousel } from "../../hooks/useCarousel";
 import styles from "./Carousel.module.css";
 
 const Carousel = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // Use your custom hook
   const { carouselImages, addImage, updateImage, removeImage } = useCarousel();
 
   const toggleDropdown = () => {

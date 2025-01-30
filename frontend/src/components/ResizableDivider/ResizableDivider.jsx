@@ -10,7 +10,7 @@ const ResizableDivider = ({ children }) => {
 
     const handleMouseMove = (moveEvent) => {
       const newWidth = (moveEvent.clientX / window.innerWidth) * 100;
-      setSidebarWidth(Math.min(Math.max(newWidth, 10), 70)); // Limit width between 10% and 70%
+      setSidebarWidth(Math.min(Math.max(newWidth, 10), 70));
     };
 
     const handleMouseUp = () => {

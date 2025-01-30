@@ -1,4 +1,3 @@
-// src/hooks/useCarousel.js
 import { useAppContext } from "../context/AppContext";
 
 export const useCarousel = () => {

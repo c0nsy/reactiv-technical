@@ -34,12 +34,12 @@
   border-radius: 0.25rem;
   border: 1px solid #ddd;
   margin-right: 0.5rem;
-  outline: none; /* remove default focus outline */
+  outline: none;
 }
 
 .textArea:focus {
-  outline: none; /* remove the default focus ring entirely */
-  border: 2px solid #006aff; /* or your custom focus color for valid fields */
+  outline: none;
+  border: 2px solid #006aff;
 }
 
 /* For invalid fields, keep them red even on focus */

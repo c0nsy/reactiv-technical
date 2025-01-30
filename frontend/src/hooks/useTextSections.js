@@ -1,4 +1,3 @@
-// src/hooks/useTextSections.js
 import { useAppContext } from "../context/AppContext";
 
 export const useTextSections = () => {

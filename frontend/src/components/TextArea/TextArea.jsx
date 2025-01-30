@@ -1,5 +1,4 @@
-// src/components/TextArea/TextArea.jsx
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTextSections } from "../../hooks/useTextSections";
 import styles from "./TextArea.module.css";
 
