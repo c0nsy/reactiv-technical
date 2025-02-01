@@ -1,7 +1,6 @@
 import { useAppContext } from "../context/AppContext";
 
 export const useCarousel = () => {
-  // Access the context
   const { carouselImages, setCarouselImages } = useAppContext();
 
   // Add a new blank image or a passed URL

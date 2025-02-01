@@ -1,4 +1,3 @@
-// import React from "react";
 import EditorSidebar from "./components/EditorSidebar/EditorSidebar";
 import MobilePreview from "./components/MobilePreview/MobilePreview";
 import ResizableDivider from "./components/ResizableDivider/ResizableDivider";

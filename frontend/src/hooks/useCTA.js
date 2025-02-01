@@ -1,6 +1,5 @@
 import { useAppContext } from "../context/AppContext";
 
-// Custom hook for managing CallToAction data
 export const useCTA = () => {
   const { ctaList, setCtaList } = useAppContext();
 
