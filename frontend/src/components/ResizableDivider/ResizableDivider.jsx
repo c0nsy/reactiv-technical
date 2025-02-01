@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./ResizableDivider.module.css";
 
-// eslint-disable-next-line react/prop-types
 const ResizableDivider = ({ children }) => {
   const [sidebarWidth, setSidebarWidth] = useState(30); // Width as a percentage
 
