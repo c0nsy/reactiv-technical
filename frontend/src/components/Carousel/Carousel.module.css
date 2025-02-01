@@ -2,13 +2,19 @@
   margin-top: 1rem;
 }
 
-/* Dropdown header styling */
 .dropdownHeader {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
   cursor: pointer;
-  background: #ddd;
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 5px;
+}
+
+.dropdownHeader:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Dropdown body styling */
